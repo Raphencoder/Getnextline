@@ -6,11 +6,11 @@
 /*   By: Raphael <raphaelkriefbm@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 14:15:52 by Raphael           #+#    #+#             */
-/*   Updated: 2017/11/27 15:46:56 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/12 12:44:38 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "getnextline.h"
+#include "libft.h"
 
 void		ft_bzero(void *s, size_t n)
 {

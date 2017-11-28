@@ -6,11 +6,11 @@
 /*   By: rkrief <raphaelkriefbm@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/07 18:44:56 by rkrief            #+#    #+#             */
-/*   Updated: 2017/11/28 12:42:00 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/11 22:47:43 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "getnextline.h"
+#include "libft.h"
 
 char	*ft_strcat(char *s1, const char *s2)
 {

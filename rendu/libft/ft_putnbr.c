@@ -6,11 +6,11 @@
 /*   By: rkrief <rkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:46:19 by rkrief            #+#    #+#             */
-/*   Updated: 2017/11/27 15:39:19 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/12 12:52:31 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "getnextline.h"
+#include "libft.h"
 
 void	ft_putnbr(int n)
 {

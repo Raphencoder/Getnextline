@@ -6,11 +6,11 @@
 /*   By: rkrief <rkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 18:24:10 by rkrief            #+#    #+#             */
-/*   Updated: 2017/11/28 11:58:51 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/12 13:03:54 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "getnextline.h"
+#include "libft.h"
 
 char		*ft_strjoin(char const *s1, char const *s2)
 {
