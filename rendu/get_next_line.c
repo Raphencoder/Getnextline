@@ -6,24 +6,28 @@
 /*   By: rkrief <rkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 14:05:18 by rkrief            #+#    #+#             */
-/*   Updated: 2017/11/29 00:02:13 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/29 13:28:26 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char 	*ft_strjoinfree(char *s1, char *s2)
+char 	*ft_strjoinfree(char **s1, int j, char *s2)
 {
 	char    *str;
 
-	if (s1 == NULL || s2 == NULL)
+//	ft_putstr(s1[j]);
+//	ft_putstr(s2);
+	if (*s1 == NULL || s2 == NULL)
 		return (NULL);
-	str = (char*)ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	str = (char*)ft_memalloc(ft_strlen(s1[j]) + ft_strlen(s2) + 1);
 	if (str == NULL)
 		return (NULL);
-	str = ft_strcat(str, s1);
+	str = ft_strcat(str, s1[j]);
+	ft_putstr(str);
 	str = ft_strcat(str, s2);
-//	free (s2);
+	free (s1[j]);
+//	ft_putstr(str);
 	return (str);
 }
 
@@ -48,6 +52,19 @@ int	ft_error(int i, char **str, int j, char **line)
 	return (1);
 }
 
+char **ft_tmp(char **str, int j)
+{
+	char *tmp;
+
+	tmp = (char*)malloc(sizeof(char) * ft_strlen(str[j]));
+	tmp = str[j];
+	free (str[j]);
+	str[j] = (char*)malloc(sizeof(char) * ft_strlen(tmp));
+	str[j] = tmp;
+	free (tmp);
+	return (str);
+}
+
 int	find_endl(char *buf, char **str, int j)
 {
 	size_t	i;
@@ -62,9 +79,16 @@ int	find_endl(char *buf, char **str, int j)
 	if (i == ft_strlen(buf))
 		return (0);
 	if (str[j] == NULL)
+	{
+	//	ft_tmp(str, j);
 		str[j] = ft_strdup(buf);
+	}
 	else
+	{
+//		ft_tmp(str, j);
+//		ft_putstr(buf);
 		str[j] = ft_strjoin(str[j], buf);
+	}
 	return (1);
 }
 
@@ -88,10 +112,17 @@ int get_next_line(const int fd, char **line)
 			break ;
 		i = ft_strlen(buf);
 		if (str[j] == NULL)
+		{
+		//	ft_putstr(buf);
+//			ft_tmp(str, j);
 			str[j] = ft_strdup(buf);
+		//	ft_putstr(str[j]);
+		}
 		else	
 		{
+//			ft_putstr(buf);
 			str[j] = ft_strjoin(str[j], buf);
+//			ft_putstr(str[j]);
 //			clone  = ft_strjoin(str[j], buf);
 		
 //			free (clone);
@@ -104,7 +135,7 @@ int get_next_line(const int fd, char **line)
 		return (-1);
 	return (1); 
 }
-/*
+
 int main(int argc, char **argv)
 {
 	int		fd;
@@ -117,4 +148,4 @@ int main(int argc, char **argv)
 	while (get_next_line(fd, line))
 		ft_putstr(*line);
 	return (0);
-} */ 
+}
