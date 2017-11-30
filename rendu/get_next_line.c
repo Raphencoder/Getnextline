@@ -6,7 +6,7 @@
 /*   By: rkrief <rkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 14:05:18 by rkrief            #+#    #+#             */
-/*   Updated: 2017/11/30 13:20:28 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/30 16:19:37 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ char		*ft_movefwrd(char **str, int fd, int i)
 		j++;
 	}
 	strnew = ft_strnew(j);
-	ft_strncpy(strnew, str[fd] + i - 1, j);
-	ft_strdel(str + fd);
+	ft_strncpy(strnew, str[fd] + i, j);
+	ft_strclr(str[fd]);
+	free(str[fd]);
 	return (strnew);
 }
 
 void		ft_fillstr(char **str, char *buf, int fd)
 {
-//	ft_putstr(buf);
-	char *tmp;
+	char 	*tmp;
+	int		j;
 
 	if (str[fd] == NULL)
 		str[fd] = ft_strdup(buf);
@@ -42,6 +43,8 @@ void		ft_fillstr(char **str, char *buf, int fd)
 	{
 		tmp = str[fd];
 		str[fd] = ft_strjoin(tmp, buf);
+		j = ft_strlen(str[fd]);
+		str[fd][j + 1] = '\0';
 		if (tmp)
 			ft_strdel(&tmp);
 	}
@@ -49,33 +52,32 @@ void		ft_fillstr(char **str, char *buf, int fd)
 
 int			ft_error(int i, char **str, int fd, char **line)
 {
-//	ft_putstr(str[fd]);
 	if (i == -1)
 		return (-1);
 	if (str[fd] == NULL)
+	{
+		*line = ft_strnew(10000);
 		return (0);
+	}
 	if (str[fd][0] == '\0')
 	{
-		ft_strdel(str + fd);
-		*line = ft_strnew(10);
+		ft_strclr(str[fd]);
+		free(str[fd]);
+		*line = ft_strnew(100000);
 		return (0);
 	}
 	i = 0;
+//	ft_putstr(str[fd]);
 	while (str[fd][i] != '\n' && str[fd][i])
 		i++;
 	*line = ft_strnew(i);
-//	ft_putstr(str[fd]);
-//	ft_putnbr(i);
-//	ft_putstr("||");
 	ft_strncpy(*line, str[fd], i);
-//	ft_putstr(*line);
 	str[fd] = ft_movefwrd(str, fd, i + 1);
 	return (1);
 }
 
 int			find_endl(char *buf, char **str, int fd)
 {
-//	ft_putstr(str[fd]);
 	size_t	i;
 
 	i = 0;
@@ -84,12 +86,10 @@ int			find_endl(char *buf, char **str, int fd)
 		if (buf[i] == '\n')
 		{
 			ft_fillstr(str, buf, fd);
-	//		ft_putstr(str[fd]);
 			return (1);
 		}
 		i++;
 	}
-//	ft_putstr(str[fd]);
 	if (i == ft_strlen(buf))
 		return (0);
 	if (i == 0)
@@ -104,33 +104,19 @@ int			get_next_line(const int fd, char **line)
 	static char **str;
 	char		buf[BUFF_SIZE + 1];
 	int			i;
-	int			tmp;
 
 	if (str == NULL)
 		str = ft_memalloc(sizeof(char *) * 4865);
 	if (fd < 0)
 		return (-1);
 	while ((j = read(fd, buf, BUFF_SIZE)) > 0)
-	{	
+	{
 		buf[j] = '\0';
-		if ((tmp = find_endl(buf, str, fd)) == 1)
-		{
-//			ft_putstr(str[fd]);
+		if (find_endl(buf, str, fd) == 1)
 			break ;
-		}
-//		if (tmp == -1)
-//		{
-//			*line = ft_strnew(10);
-//			return (0);
-//		}
-//		ft_putstr(str[fd]);
 		ft_fillstr(str, buf, fd);
-//		ft_putstr(str[fd]);
 	}
-//	ft_putstr(str[fd]);
-//	ft_putstr(str[fd]);
 	i = ft_error(j, str, fd, line);
-//	ft_putstr(str[fd]);
 	if (i == 0)
 		return (0);
 	if (i == -1)
@@ -144,15 +130,31 @@ int main(int argc, char **argv)
 	int		fd2;
 	char	*line;
 	int		ret;
+	int		ret2;
 	fd = open(argv[1], O_RDONLY);
-	fd2 = open(argv[2], O_RDONLY);
-	ret = get_next_line(fd, &line);
-	printf("%d - %s\n", ret, line);
-	ret = get_next_line(fd, &line);
-	printf("%d - %s\n", ret, line);
-	ret = get_next_line(fd, &line);
-	printf("%d - %s\n", ret, line);
-	ret = get_next_line(fd, &line);
-	printf("%d - %s\n", ret, line);
+//	fd2 = open(argv[2], O_RDONLY);
+//	ret = get_next_line(fd, &line);
+//	printf("%d - %s\n", ret, line);
+//	ret = get_next_line(fd2, &line);
+//	printf("%d - %s\n", ret, line);
+//	ret = get_next_line(fd2, &line);
+//	printf("%d - %s\n", ret, line);
+//	ret = get_next_line(fd, &line);
+//	printf("%d - %s\n", ret, line);
+ //	ret = get_next_line(fd2, &line);
+//	printf("%d - %s\n", ret, line);
+//	ret = get_next_line(fd, &line);
+//	printf("%d - %s\n", ret, line);
+//	ret = get_next_line(fd2, &line);
+//	printf("%d - %s\n", ret, line);
+	ret = 1;
+//	ret2 = 0;
+	while (ret > 0)
+	{
+		ret = get_next_line(fd, &line);
+//		printf("ret = %d - %s\n", ret, line);
+//		ret2 = get_next_line(fd2, &line);
+//		printf("ret2 = %d - %s\n", ret2, line);
+	}
 	return (0);
-} */
+}  */ 
