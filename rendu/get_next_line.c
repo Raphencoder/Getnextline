@@ -6,7 +6,7 @@
 /*   By: rkrief <rkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 14:05:18 by rkrief            #+#    #+#             */
-/*   Updated: 2017/11/30 16:19:37 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/30 16:31:46 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char		*ft_movefwrd(char **str, int fd, int i)
 
 void		ft_fillstr(char **str, char *buf, int fd)
 {
-	char 	*tmp;
+	char	*tmp;
 	int		j;
 
 	if (str[fd] == NULL)
@@ -67,7 +67,6 @@ int			ft_error(int i, char **str, int fd, char **line)
 		return (0);
 	}
 	i = 0;
-//	ft_putstr(str[fd]);
 	while (str[fd][i] != '\n' && str[fd][i])
 		i++;
 	*line = ft_strnew(i);
@@ -123,38 +122,3 @@ int			get_next_line(const int fd, char **line)
 		return (-1);
 	return (1);
 }
-/*
-int main(int argc, char **argv)
-{
-	int		fd;
-	int		fd2;
-	char	*line;
-	int		ret;
-	int		ret2;
-	fd = open(argv[1], O_RDONLY);
-//	fd2 = open(argv[2], O_RDONLY);
-//	ret = get_next_line(fd, &line);
-//	printf("%d - %s\n", ret, line);
-//	ret = get_next_line(fd2, &line);
-//	printf("%d - %s\n", ret, line);
-//	ret = get_next_line(fd2, &line);
-//	printf("%d - %s\n", ret, line);
-//	ret = get_next_line(fd, &line);
-//	printf("%d - %s\n", ret, line);
- //	ret = get_next_line(fd2, &line);
-//	printf("%d - %s\n", ret, line);
-//	ret = get_next_line(fd, &line);
-//	printf("%d - %s\n", ret, line);
-//	ret = get_next_line(fd2, &line);
-//	printf("%d - %s\n", ret, line);
-	ret = 1;
-//	ret2 = 0;
-	while (ret > 0)
-	{
-		ret = get_next_line(fd, &line);
-//		printf("ret = %d - %s\n", ret, line);
-//		ret2 = get_next_line(fd2, &line);
-//		printf("ret2 = %d - %s\n", ret2, line);
-	}
-	return (0);
-}  */ 
