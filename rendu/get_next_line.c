@@ -6,7 +6,7 @@
 /*   By: rkrief <rkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 14:05:18 by rkrief            #+#    #+#             */
-/*   Updated: 2017/11/30 16:31:46 by rkrief           ###   ########.fr       */
+/*   Updated: 2017/11/30 16:57:22 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int			ft_error(int i, char **str, int fd, char **line)
 	if (str[fd][0] == '\0')
 	{
 		ft_strclr(str[fd]);
-		free(str[fd]);
 		*line = ft_strnew(100000);
 		return (0);
 	}
